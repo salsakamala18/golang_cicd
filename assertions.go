@@ -63,26 +63,6 @@ func validateEqualArgs(expected, actual interface{}) error {
 	return nil
 }
 
-func ObjectsAreEqual(expected, actual interface{}) bool {
-	if expected == nil || actual == nil {
-		return expected == actual
-	}
-
-	exp, ok := expected.([]byte)
-	if !ok {
-		return reflect.DeepEqual(expected, actual)
-	}
-
-	act, ok := actual.([]byte)
-	if !ok {
-		return false
-	}
-	if exp == nil || act == nil {
-		return exp == nil && act == nil
-	}
-	return bytes.Equal(exp, act)
-}
-
 func truncatingFormat(data interface{}) string {
 	value := fmt.Sprintf("%#v", data)
 	max := bufio.MaxScanTokenSize - 100 // Give us some space the type info too if needed.
