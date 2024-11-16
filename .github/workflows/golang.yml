@@ -25,6 +25,9 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
 
+      - name: Initial
+        run: go mod tidy
+
       - name: Install dependencies
         run: go get .
 
