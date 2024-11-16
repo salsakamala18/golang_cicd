@@ -35,14 +35,14 @@ jobs:
         run: go build > BuildRes
 
 
-      - name: Test with Go
-        run: go build > BuildResults-${{ matrix.go-version }}
+      - name:  Create Test Results with Go
+        run: go test -json > TestResults-${{ matrix.go-version }}.json
        
        
 
 
       - name: Upload Go test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Go-BuildResults-${{ matrix.go-version }}
-          path: BuildResults-${{ matrix.go-version }}
+          name: Go-TestResults-${{ matrix.go-version }}
+          path: TestResults-${{ matrix.go-version }}.json
