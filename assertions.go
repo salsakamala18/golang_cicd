@@ -84,6 +84,49 @@ func formatUnequalValues(expected, actual interface{}) (e string, a string) {
 	return truncatingFormat(expected), truncatingFormat(actual)
 }
 
+func diff(expected interface{}, actual interface{}) string {
+	if expected == nil || actual == nil {
+		return ""
+	}
+
+	et, ek := typeAndKind(expected)
+	at, _ := typeAndKind(actual)
+
+	if et != at {
+		return ""
+	}
+
+	if ek != reflect.Struct && ek != reflect.Map && ek != reflect.Slice && ek != reflect.Array && ek != reflect.String {
+		return ""
+	}
+
+	var e, a string
+
+	switch et {
+	case reflect.TypeOf(""):
+		e = reflect.ValueOf(expected).String()
+		a = reflect.ValueOf(actual).String()
+	case reflect.TypeOf(time.Time{}):
+		e = spewConfigStringerEnabled.Sdump(expected)
+		a = spewConfigStringerEnabled.Sdump(actual)
+	default:
+		e = spewConfig.Sdump(expected)
+		a = spewConfig.Sdump(actual)
+	}
+
+	diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
+		A:        difflib.SplitLines(e),
+		B:        difflib.SplitLines(a),
+		FromFile: "Expected",
+		FromDate: "",
+		ToFile:   "Actual",
+		ToDate:   "",
+		Context:  1,
+	})
+
+	return "\n\nDiff:\n" + diff
+}
+
 func isFunction(arg interface{}) bool {
 	if arg == nil {
 		return false
