@@ -34,9 +34,6 @@ jobs:
       - name: Building Go
         run: go build .
 
-      - name:  Create Test Results with Go
-        run: go test > TestResults-${{ matrix.go-version }}.json
-
       - name: Check Directory and Files
         run: ls
 
