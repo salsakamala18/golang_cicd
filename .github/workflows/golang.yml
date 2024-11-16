@@ -47,5 +47,4 @@ jobs:
           path: TestResults-${{ matrix.go-version }}.json
 
       - uses: AutoModality/action-clean@v1
-      - uses: actions/checkout@v4
       - run: echo Hello World
