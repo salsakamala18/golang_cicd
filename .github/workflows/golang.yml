@@ -26,7 +26,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Initial
-        run: go init ${{ github.repository }}
+        run: go mod init ${{ github.repository }}
 
       - name: Install dependencies
         run: go get .
