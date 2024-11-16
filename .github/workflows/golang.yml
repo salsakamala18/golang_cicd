@@ -35,7 +35,7 @@ jobs:
         run: go build > TestResults
 
       - name:  Create Test Results with Go
-        run: go test -json > TestResults-${{ matrix.go-version }}.json
+        run: go test > TestResults-${{ matrix.go-version }}.json
 
       - name: Check Directory and Files
         run: ls
