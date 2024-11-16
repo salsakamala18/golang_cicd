@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: go get .
 
+      - name: Build
+        run: go build > TestResults
+
       - name:  Create Test Results with Go
         run: go test -json > TestResults-${{ matrix.go-version }}.json
 
