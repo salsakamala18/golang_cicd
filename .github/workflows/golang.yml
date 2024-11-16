@@ -32,7 +32,7 @@ jobs:
         run: go get .
 
       - name:  Create Test Results with Go
-        run: go test -json
+        run: go test -json > TestResults-${{ matrix.go-version }}.json
 
       - name: Check Directory and Files
         run: ls
