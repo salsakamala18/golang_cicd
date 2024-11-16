@@ -31,13 +31,12 @@ jobs:
       - name: Install dependencies
         run: go get .
 
-      - name: Build
-        run: go build > BuildRes
-
-
       - name:  Create Test Results with Go
-        run: go test -json > TestResults-${{ matrix.go-version }}.json
-       
+        run: go test -json
+
+      - name: Check Directory and Files
+        run: ls
+
        
 
 
